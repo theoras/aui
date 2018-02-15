@@ -463,7 +463,7 @@ select_linux_version() {
           #pacman -Sg base | cut -d ' ' -f 2 | sed s/\^linux\$/linux-lts/g | pacstrap ${MOUNTPOINT} - linux-lts-headers
        #elif [ "linux-hardened (security features)" == "$VERSION" ];then
           #pacman -Sg base | cut -d ' ' -f 2 | sed s/\^linux\$/linux-hardened/g | pacstrap ${MOUNTPOINT} - linux-hardened-headers
-      fi
+      #fi
       break
     else
       invalid_option
