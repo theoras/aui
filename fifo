@@ -479,7 +479,7 @@ install_base_system(){
   #select_linux_version
   #pacstrap ${MOUNTPOINT} base-devel parted btrfs-progs f2fs-tools ntp net-tools
   
-  echo "Install the archiso to the new root"
+  print_info "Install the archiso to the new root"
   time cp -ax / ${MOUNTPOINT}
   
   [[ $? -ne 0 ]] && error_msg "Installing base system to ${MOUNTPOINT} failed. Check error messages above."
@@ -487,34 +487,35 @@ install_base_system(){
   cp -vaT /run/archiso/bootmnt/arch/boot/$(uname -m)/vmlinuz /mnt/boot/vmlinuz-linux
 
   local PTABLE=`parted -l | grep "gpt"`
-  [[ -n $PTABLE ]] && pacstrap ${MOUNTPOINT} gptfdisk
+ # [[ -n $PTABLE ]] && pacstrap ${MOUNTPOINT} gptfdisk
   WIRELESS_DEV=`ip link | grep wl | awk '{print $2}'| sed 's/://' | sed '1!d'`
-  
+  print_info "Done"
+
   print_info "Chroot and configure the base system"
-  arch-chroot /mnt /bin/bash
+  #arch-chroot /mnt /bin/bash
   print_info "Done"
   print_info "echo" Restore the configuration of journal
-  sed -i 's/Storage=volatile/#Storage=auto/' /etc/systemd/journald.conf
+  chroot /mnt sed -i 's/Storage=volatile/#Storage=auto/' /etc/systemd/journald.conf
   print_info "Done"
   print_info "Remove special udev rule"
-  rm /etc/udev/rules.d/81-dhcpcd.rules
+  chroot /mnt rm /etc/udev/rules.d/81-dhcpcd.rules
   print_info "Done"
   print_info "Disable and remove the services created by archiso"
-  systemctl disable pacman-init.service choose-mirror.service
-  rm -r /etc/systemd/system/{choose-mirror.service,pacman-init.service,etc-pacman.d-gnupg.mount,getty@tty1.service.d}
-  rm /etc/systemd/scripts/choose-mirror
-  rm /etc/systemd/system/archiso-start.service
-  rm /etc/systemd/system/multi-user.target.wants/archiso-start.service
+  chroot /mnt systemctl disable pacman-init.service choose-mirror.service
+  chroot /mnt rm -r /etc/systemd/system/{choose-mirror.service,pacman-init.service,etc-pacman.d-gnupg.mount,getty@tty1.service.d}
+  chroot /mnt rm /etc/systemd/scripts/choose-mirror
+  chroot /mnt rm /etc/systemd/system/archiso-start.service
+  chroot /mnt rm /etc/systemd/system/multi-user.target.wants/archiso-start.service
   print_info "Done"  
   print_info "Remove special scripts of the Live environment"
-  rm /etc/systemd/system/getty@tty1.service.d/autologin.conf
-  rm /root/{.automated_script.sh,.zlogin}
-  rm /etc/mkinitcpio-archiso.conf
-  rm -r /etc/initcpio
+  chroot /mnt rm /etc/systemd/system/getty@tty1.service.d/autologin.conf
+  chroot /mnt rm /root/{.automated_script.sh,.zlogin}
+  chroot /mnt rm /etc/mkinitcpio-archiso.conf
+  chroot /mnt rm -r /etc/initcpio
   print_info "Done"
   print_info "Importing archlinux keys" 
-  pacman-key --init
-  pacman-key --populate archlinux
+  chroot /mnt pacman-key --init
+  chroot /mnt pacman-key --populate archlinux
   print_info "Done"
 
   exit
