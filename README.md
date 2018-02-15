@@ -6,8 +6,6 @@ Install and configure archlinux has never been easier!
 
 You can try it first with a `virtualbox`
 
-
-
 ## Prerequisites
 
 - A working internet connection
