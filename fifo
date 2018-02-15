@@ -518,8 +518,6 @@ install_base_system(){
   chroot /mnt pacman-key --populate archlinux
   print_info "Done"
 
-  exit
-
   #if [[ -n $WIRELESS_DEV ]]; then
   #  pacstrap ${MOUNTPOINT} iw wireless_tools wpa_actiond wpa_supplicant dialog
   #else
