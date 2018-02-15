@@ -512,7 +512,7 @@ install_base_system(){
   pacman-key --populate archlinux
   
   exit
-  
+
   #if [[ -n $WIRELESS_DEV ]]; then
   #  pacstrap ${MOUNTPOINT} iw wireless_tools wpa_actiond wpa_supplicant dialog
   #else
@@ -524,7 +524,7 @@ install_base_system(){
  # if is_package_installed "espeakup"; then
  #   pacstrap ${MOUNTPOINT} alsa-utils espeakup brltty
  #   arch_chroot "systemctl enable espeakup.service"
-  fi
+  #fi
 }
 #}}}
 #CONFIGURE KEYMAP {{{
