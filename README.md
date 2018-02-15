@@ -1,11 +1,12 @@
-### Project only accepting patches
-This project is not actively developed but *will* accept PRs
-
 # Archlinux U Install
+
+**Modded for offline system install**
 
 Install and configure archlinux has never been easier!
 
 You can try it first with a `virtualbox`
+
+
 
 ## Prerequisites
 
@@ -16,13 +17,13 @@ You can try it first with a `virtualbox`
 ### With git
 - Increase cowspace partition: `mount -o remount,size=2G /run/archiso/cowspace`
 - Get list of packages and install git: `pacman -Sy git`
-- get the script: `git clone git://github.com/helmuthdu/aui`
+- get the script: `git clone git://github.com/theoras/aui.git`
 
 ### Without git
-- get the script: ` wget https://github.com/helmuthdu/aui/tarball/master -O - | tar xz`
-    - an alternate URL (for less typing (github shorten)) is ` https://git.io/vS1GH -O - | tar xz`
-    - an alternate URL (for less typing) is ` wget http://bit.ly/NoUPC6 -O - | tar xz`
-    - super short `wget ow.ly/wnFgh -O aui.zip`
+- get the script: ` wget https://github.com/theoras/aui/tarball/master -O - | tar xz`
+    <!-- - an alternate URL (for less typing (github shorten)) is ` https://git.io/vS1GH -O - | tar xz`-->
+    - an alternate URL (for less typing) is ` wget https://goo.gl/bEUa4i -O - | tar xz`
+    <!-- - super short `wget ow.ly/wnFgh -O aui.zip`-->
 
 ## How to use
 - FIFO [system base]: `cd <dir> && ./fifo`
