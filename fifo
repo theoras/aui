@@ -490,33 +490,33 @@ install_base_system(){
   [[ -n $PTABLE ]] && pacstrap ${MOUNTPOINT} gptfdisk
   WIRELESS_DEV=`ip link | grep wl | awk '{print $2}'| sed 's/://' | sed '1!d'`
   
-  echo "Chroot and configure the base system"
+  print_info "Chroot and configure the base system"
   arch-chroot /mnt /bin/bash
-  echo "Done"
-  echo "echo" Restore the configuration of journal
+  print_info "Done"
+  print_info "echo" Restore the configuration of journal
   sed -i 's/Storage=volatile/#Storage=auto/' /etc/systemd/journald.conf
-  echo "Done"
-  echo "Remove special udev rule"
+  print_info "Done"
+  print_info "Remove special udev rule"
   rm /etc/udev/rules.d/81-dhcpcd.rules
-  echo "Done"
-  echo "Disable and remove the services created by archiso"
+  print_info "Done"
+  print_info "Disable and remove the services created by archiso"
   systemctl disable pacman-init.service choose-mirror.service
   rm -r /etc/systemd/system/{choose-mirror.service,pacman-init.service,etc-pacman.d-gnupg.mount,getty@tty1.service.d}
   rm /etc/systemd/scripts/choose-mirror
   rm /etc/systemd/system/archiso-start.service
   rm /etc/systemd/system/multi-user.target.wants/archiso-start.service
-  echo "Done"  
-  echo "Remove special scripts of the Live environment"
+  print_info "Done"  
+  print_info "Remove special scripts of the Live environment"
   rm /etc/systemd/system/getty@tty1.service.d/autologin.conf
   rm /root/{.automated_script.sh,.zlogin}
   rm /etc/mkinitcpio-archiso.conf
   rm -r /etc/initcpio
-  echo "Done"
-  echo "Importing archlinux keys" 
+  print_info "Done"
+  print_info "Importing archlinux keys" 
   pacman-key --init
   pacman-key --populate archlinux
-  echo "Done"
-  
+  print_info "Done"
+
   exit
 
   #if [[ -n $WIRELESS_DEV ]]; then
